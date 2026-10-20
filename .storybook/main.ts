@@ -8,6 +8,17 @@ const config: StorybookConfig = {
   "framework": "@storybook/angular-vite",
   viteFinal: (viteConfig) => ({
     ...viteConfig,
+    // Build with Angular's development compilation.
+    //
+    // Storybook's Angular renderer derives each story's template from the
+    // component's @Component metadata (selector, inputs) through Angular's
+    // reflection API. In a production compilation that metadata is stripped -
+    // @analogjs/vite-plugin-angular defines `ngDevMode` as `false` and enables
+    // the advanced optimizations, which drop the library's
+    // `ɵɵngDeclareClassMetadata(...)` call - and every story then fails with
+    // "Cannot read properties of undefined (reading 'selector')".
+    // `mode: 'development'` keeps that metadata in the bundle.
+    mode: 'development',
     optimizeDeps: {
       ...viteConfig.optimizeDeps,
       // Keep @angular/core as its own pre-bundled dep. Without it Vite inlines

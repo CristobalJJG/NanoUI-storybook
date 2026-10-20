@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/angular-vite'
+import '@nanojjg/nano-ui-components/themes.css'
 
 const preview: Preview = {
   parameters: {

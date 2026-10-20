@@ -1,43 +1,43 @@
-# Storybook
+# Storybook — `@nanojjg/nano-ui-components`
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.3.
+Storybook del design system `@nanojjg/nano-ui-components` (Angular 22 + Storybook 10 con `@storybook/angular-vite`).
 
-## Development server
+Este workspace **solo contiene Storybook**: no hay aplicación Angular. Las historias viven en
+`src/stories/<componente>/nano-<componente>.stories.ts` y el Storybook las compila con el
+plugin de Angular en modo JIT.
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Comandos
 
 ```bash
-ng generate component component-name
+npm install          # instala dependencias
+npm run storybook    # servidor de desarrollo en http://localhost:6006
+npm run build        # build estático del Storybook en ./dist
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+`npm run build-storybook` es un alias de `npm run build`.
+
+Para servir el resultado del build:
 
 ```bash
-ng generate --help
+npx serve dist       # o cualquier servidor estático
 ```
 
-## Building
+## Estructura
 
-To build the project run:
+| Ruta | Contenido |
+| --- | --- |
+| `.storybook/main.ts` | Glob de historias, framework y ajustes de Vite (`viteFinal`) |
+| `.storybook/preview.ts` | Parámetros globales del preview + CSS del tema |
+| `.storybook/tsconfig.json` | tsconfig que compila el plugin de Angular |
+| `src/stories/**` | Una carpeta por componente con su archivo `*.stories.ts` |
+| `public/` | Estáticos copiados a la raíz del build |
 
-```bash
-ng build
-```
+## Notas importantes
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Los componentes se importan siempre desde la raíz del paquete:
+  `import { NanoAlertComponent } from '@nanojjg/nano-ui-components';`
+  El paquete solo expone el entry raíz y `./themes.css`; no hay deep imports.
+- `.storybook/main.ts` mantiene `@angular/core` en `optimizeDeps.include` y compila en
+  `mode: 'development'`, y los targets de `angular.json` usan `enableProdMode: false`.
+  Los tres ajustes son necesarios para que el renderer de Storybook pueda leer los metadatos
+  (`@Component`) de la librería. Ver `AGENTS.md` para el detalle.
