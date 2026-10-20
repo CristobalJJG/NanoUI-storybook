@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "storybook": "ng run storybook:storybook",
+    "build-storybook": "ng run storybook:build-storybook"
   },
   "private": true,
   "packageManager": "npm@10.9.8",
@@ -17,16 +19,25 @@
     "@angular/forms": "^22.2.0",
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
+    "@nanojjg/nano-ui-components": "^0.2.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.7.3",
+    "@angular-devkit/architect": "^0.2202.0",
+    "@angular-devkit/build-angular": "^22.2.0",
+    "@angular-devkit/core": "^22.2.0",
+    "@angular/animations": "^22.2.0",
     "@angular/build": "^22.2.3",
     "@angular/cli": "^22.2.3",
     "@angular/compiler-cli": "^22.2.0",
+    "@storybook/angular-vite": "^10.6.3",
+    "@types/node": "^20",
     "jsdom": "^30.0.0",
     "prettier": "^3.8.1",
+    "storybook": "^10.6.3",
     "typescript": "~6.0.2",
-    "vitest": "^5.0.0"
+    "vite": "latest"
   }
 }
